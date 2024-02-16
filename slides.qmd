@@ -1,0 +1,23 @@
+---
+title: "Coding Best Practice"
+format: revealjs
+editor: visual
+---
+
+## What we will cover in this session
+
+-   Why this is important/useful
+-   Readable code
+-   Naming things
+-   Organising your projects
+-   Version control
+
+## Why this is important
+
+Having code that is readable, understandable and reproducible is important. Particularly if you are collaborating with others but even if you are working on your own project M
+
+## readable code
+
+-   camel/snake case
+-   spaces
+-   new lines
