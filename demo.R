@@ -12,3 +12,8 @@ head(LOS_model)
 write_csv(LOS_model, "data/trust_los.csv")
 
 LOS_model <- as.data.frame(LOS_model)
+
+
+
+library(here)
+#ggsave(here::here("figs", paste0(org_name, ".png")))

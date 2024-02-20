@@ -6,6 +6,8 @@ editor: visual
 
 ## What we will cover in this session
 
+<br>
+
 -   Why this is important/useful
 -   Readable code
 -   Naming things
@@ -14,10 +16,115 @@ editor: visual
 
 ## Why this is important
 
-Having code that is readable, understandable and reproducible is important. Particularly if you are collaborating with others but even if you are working on your own project M
+<br>It is important that your code is:
 
-## readable code
+-   readable
 
--   camel/snake case
--   spaces
--   new lines
+-   understandable
+
+-   reproducible
+
+Particularly if you are collaborating with others but even if you are working on a project by yourself
+
+## Resources
+
+<br> [Data Camp tutorial](https://www.datacamp.com/tutorial/coding-best-practices-and-guidelines)
+
+<br> [TidyVerse style guide](https://style.tidyverse.org/index.html)
+
+<br> [Google Style Guides - including R and Python](https://google.github.io/styleguide/)
+
+## Readable code
+
+<br> For naming variables and functions there are two common conventions you can use:
+
+-   theFirstOneIsCalledCamelCase
+
+-   the_second_is_called_snake_case
+
+<br> Personal preference but be consistent <br> Do not use spaces in names
+
+## Readable Code
+
+<br> The `janitor` package in R has useful functions for cleaning variable names
+
+```{r}
+#| echo: false
+library(tidyverse)
+data <- read_csv(here::here("data", "trust_los.csv"))
+head(data)
+```
+
+## Readable Code
+
+<br> The `janitor` package in R has useful functions for cleaning variable names
+
+```{r}
+#| echo: TRUE
+library(janitor)
+
+data <- clean_names(data)
+
+head(data, n = 4)
+```
+
+## Readable Code
+
+<br> The `janitor` package in R has useful functions for cleaning variable names <br>
+
+```{r}
+#| echo: TRUE
+data <- clean_names(data, case = "upper_camel")
+
+head(data, n = 4)
+```
+
+```{r}
+#| echo: FALSE
+data <- clean_names(data)
+```
+
+## Readable Code
+
+<br> Use spaces in lines of code
+<br>
+```{r}
+#| echo: TRUE
+# bad
+data$patient_age_grp<-if_else(data$patient_age<55,0,1)
+
+trust1<-data[data$organisation_name=="Trust1",]
+
+# better
+data$patient_age_grp <- if_else(data$patient_age <= 55, 0, 1)
+
+trust1 <- data[data$organisation_name == "Trust1", ]
+```
+
+## Readable Code
+
+<br> Avoid lines that are too long
+<br>
+```{r}
+#| echo: TRUE
+#| output: FALSE
+# bad
+ggplot(data) +
+  geom_point(aes(x = patient_age, y = length_of_stay, colour = as.factor(death_flag))) +
+  theme_minimal() +
+  labs(title = "Age and length of stay of patients at 10 hospital trusts", x = "Patient Age (years)", y = "Patient Length of Stay (Days)")
+
+# better
+ggplot(data) +
+  geom_point(aes(x = patient_age, 
+                 y = length_of_stay, 
+                 colour = as.factor(death_flag))) +
+  theme_minimal() +
+  labs(title = "Age and length of stay of patients at 10 hospital trusts", 
+       x = "Patient Age (years)", 
+       y = "Patient Length of Stay (Days)")
+```
+
+## Readable Code
+
+<br> If using the `tidyverse` and 
