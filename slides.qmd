@@ -1,6 +1,8 @@
 ---
 title: "Coding Best Practice"
-format: revealjs
+format: 
+  revealjs: 
+    embed-resources: true
 editor: visual
 ---
 
