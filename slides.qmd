@@ -7,6 +7,7 @@ editor: visual
 ```{r}
 #| echo: FALSE
 #| warning: false
+#| output: false
 setwd("C:/Users/mfbx9sbk/OneDrive - The University of Manchester/MSc Teaching/coding_best_practice_2")
 here::i_am("slides.qmd")
 library(here)
@@ -24,6 +25,8 @@ library(gt)
 -   Naming things
 -   Organising your projects
 -   Version control
+
+<br> Disclaimer - some of it is quite specific to coding in R
 
 ## Why this is important
 
@@ -378,3 +381,58 @@ write_csv(data, "data/trust_los_clean.csv")
 ## Organising Your Work
 
 ![](screenshots/new_proj_example_4.PNG)
+
+## Organising Your Work
+
+<br> Use the README.MD document to briefly describe your project, including what you have done and what the output is.
+
+<br> ![](screenshots/readme_example.PNG)
+
+## Version Control
+
+<br> If you have ever had a bunch of files that look something like this then you may want to consider using a version control system to manage your projects
+
+![](screenshots/files.png)
+
+## Version Control
+
+<br> Using a version control system can:
+
+-   help organise your work and keep track of updates and changes
+-   make it easier to collaborate with others
+-   create a repository that can be shared more widely when a project is complete
+-   be difficult to navigate at first but quickly become integrated into your regular workflow
+
+## Version Control
+
+<br> The most widely used (in the data science community) software for version control is Git. <br> Git takes snapshots of all files in a project at a specific time - referred to as a "commit". <br> It stores the initial version and any subsequent updated versions that are committed. <br> It tracks any changes you have made at each commit, which can be identified using the "diff" command
+
+## Version Control
+
+<br> GitHub is a complementary hosting platform for your repositories (others are available). <br> Once updates have been committed to Git they can be "pushed" to GitHub. <br> Collaborators can then "fork" a copy of the repository and work on it locally whilst you are also still working on it, by pushing and pulling commits to GitHub.
+
+## Version Control
+
+<br> What a repository looks like on GitHub ![](screenshots/github_example.PNG)
+
+## Version Control
+
+<br> I would recommend reading this [article](https://peerj.com/preprints/3159v2/) which explains in more detail about how to use Git and GitHub. ![](screenshots/git_bryan.PNG)
+
+## Version Control
+
+<br> Git can be integrated into RStudio and therefore more easily be incorporated into your workflow. <br> Once installed an additional tab in the environment pane will appear, where you can commit and push files.
+
+![](screenshots/git_rstudio.PNG)
+
+## Version Control
+
+<br> Or you can go into the RStudio terminal tab and type Git commands from there
+
+![](screenshots/git_terminal.PNG)
+
+## Version Control
+
+<br> To install Git and connect it to your GitHub and RStudio then follow this [tutorial](https://happygitwithr.com) by Jenny Bryan. It talks through each setup step and how to do basic Git commands.
+
+![](screenshots/happy_git.PNG)

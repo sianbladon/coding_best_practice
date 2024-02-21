@@ -406,6 +406,7 @@
 <li>Organising your projects</li>
 <li>Version control</li>
 </ul>
+<p><br> Disclaimer - some of it is quite specific to coding in R</p>
 </section>
 <section id="why-this-is-important" class="slide level2">
 <h2>Why this is important</h2>
@@ -703,7 +704,7 @@
 </section>
 <section id="organising-your-work-3" class="slide level2">
 <h2>Organising Your Work</h2>
-<p><br> <code>set_wd()</code> uses absolute file paths, e.g.&nbsp;</p>
+<p><br> <code>set_wd()</code> uses absolute file paths, e.g.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a><span class="fu">setwd</span>(<span class="st">"C:/Users/mfbx9sbk/OneDrive - The University of Manchester/MSc Teaching/coding_best_practice_2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -711,31 +712,73 @@
 </section>
 <section id="organising-your-work-4" class="slide level2">
 <h2>Organising Your Work</h2>
-<p><br> R Projects use relative file paths, which are relative to the working directory of the project. <br> For example, you want to save a cleaned version of your data, or a plot you have generated.</p>
+<p><br> R Projects use relative file paths, which are relative to the working directory of the project.<br> <br> For example, you want to save a cleaned version of your data, or a plot you have generated.</p>
 </section>
 <section id="organising-your-work-5" class="slide level2">
 <h2>Organising Your Work</h2>
-<p><br> Here the file paths are relative to the Project directory <br></p>
+<p><br> Here the file paths are relative to the Project directory <br><br></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a><span class="fu">ggplot</span>(data) <span class="sc">+</span></span>
 <span id="cb19-2"><a href=""></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> patient_age, <span class="at">y =</span> length_of_stay))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a><span class="fu">ggsave</span>(<span class="st">"figs/age_los_scatter.png"</span>)</span>
 <span id="cb20-2"><a href=""></a></span>
-<span id="cb20-3"><a href=""></a><span class="fu">write_csv</span>(data, <span class="st">"data/trust_los_clean.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-3"><a href=""></a></span>
+<span id="cb20-4"><a href=""></a><span class="fu">write_csv</span>(data, <span class="st">"data/trust_los_clean.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p><br> So if you shared the project with another person then it would not matter where they saved the project, all the file paths would work.</p>
 </section>
 <section id="organising-your-work-6" class="slide level2">
 <h2>Organising Your Work</h2>
 
 <img data-src="screenshots/project_example.png" class="r-stretch"></section>
-<section id="organising-your-project" class="slide level2">
-<h2>Organising Your Project</h2>
+<section id="organising-your-work-7" class="slide level2">
+<h2>Organising Your Work</h2>
 
 <img data-src="screenshots/plot_example.png" class="r-stretch"></section>
-<section id="organising-your-project-1" class="slide level2">
-<h2>Organising Your Project</h2>
+<section id="organising-your-work-8" class="slide level2">
+<h2>Organising Your Work</h2>
 
-<img data-src="screenshots/data_example.png" class="r-stretch"><div class="quarto-auto-generated-content">
+<img data-src="screenshots/data_example.png" class="r-stretch"></section>
+<section id="organising-your-work-9" class="slide level2">
+<h2>Organising Your Work</h2>
+<p><br> To set up an R Project go to File -&gt; New Project</p>
+
+<img data-src="screenshots/new_proj_example.PNG" class="r-stretch"></section>
+<section id="organising-your-work-10" class="slide level2">
+<h2>Organising Your Work</h2>
+
+<img data-src="screenshots/new_proj_example_2.PNG" class="r-stretch"></section>
+<section id="organising-your-work-11" class="slide level2">
+<h2>Organising Your Work</h2>
+
+<img data-src="screenshots/new_proj_example_3.PNG" class="r-stretch"></section>
+<section id="organising-your-work-12" class="slide level2">
+<h2>Organising Your Work</h2>
+
+<img data-src="screenshots/new_proj_example_4.PNG" class="r-stretch"></section>
+<section id="organising-your-work-13" class="slide level2">
+<h2>Organising Your Work</h2>
+<p><br> Use the README.MD document to briefly describe your project, including what you have done and what the output is.</p>
+<p><br> <img data-src="screenshots/readme_example.PNG"></p>
+</section>
+<section id="version-control" class="slide level2">
+<h2>Version Control</h2>
+<p><br> If you have ever had a bunch of files that look something like this then you may want to consider using a version control system to manage your projects</p>
+
+<img data-src="screenshots/files.png" class="r-stretch"></section>
+<section id="version-control-1" class="slide level2">
+<h2>Version Control</h2>
+<p><br> Using a version control system can:</p>
+<ul>
+<li>help organise your work and keep track of updates and changes</li>
+<li>make it easier to collaborate with others</li>
+<li>create a repository that can be shared more widely when a project is complete</li>
+</ul>
+</section>
+<section id="version-control-2" class="slide level2">
+<h2>Version Control</h2>
+<p><br> The most widely used software for data scientists is Git. <br> GitHub is a complementary hosting platform for your repositories. <br> I would recommend reading this <a href="https://peerj.com/preprints/3159v2/">article</a> which explains in more detail. <img data-src="screenshots/git_bryan.PNG"></p>
+<div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
 </div>
