@@ -310,7 +310,7 @@ Insert a new section using ctrl + shift + R and navigate using the document outl
 
 ## Organising Your Work
 
-![](sections_example.png)
+![](screenshots/sections_example.png)
 
 ## Organising Your Work
 
@@ -318,41 +318,63 @@ Insert a new section using ctrl + shift + R and navigate using the document outl
 
 ## Organising Your Work
 
-<br> `set_wd()` uses absolute file paths, e.g. 
+<br> `set_wd()` uses absolute file paths, e.g.
+
 ```{r}
 #| echo: true
 #| output: false
 setwd("C:/Users/mfbx9sbk/OneDrive - The University of Manchester/MSc Teaching/coding_best_practice_2")
 ```
+
 <br> This can cause problems when you are collaborating with others, as not everyone will have their files organised in the same way.
 
 ## Organising Your Work
 
-<br> R Projects use relative file paths, which are relative to the working directory of the project.
-<br> For example, you want to save a cleaned version of your data, or a plot you have generated.
+<br> R Projects use relative file paths, which are relative to the working directory of the project.<br> <br> For example, you want to save a cleaned version of your data, or a plot you have generated.
 
 ## Organising Your Work
 
-<br> Here the file paths are relative to the Project directory
-<br>
+<br> Here the file paths are relative to the Project directory <br><br>
+
 ```{r}
 #| echo: true
 #| output: false
 ggplot(data) +
   geom_point(aes(x = patient_age, y = length_of_stay))
-
 ggsave("figs/age_los_scatter.png")
+
 
 write_csv(data, "data/trust_los_clean.csv")
 ```
 
+<br> So if you shared the project with another person then it would not matter where they saved the project, all the file paths would work.
+
 ## Organising Your Work
 
-![](project_example.png)
+![](screenshots/project_example.png)
 
-## Organising Your Project
-![](plot_example.png)
+## Organising Your Work
 
-## Organising Your Project
+![](screenshots/plot_example.png)
 
-![](data_example.png)
+## Organising Your Work
+
+![](screenshots/data_example.png)
+
+## Organising Your Work
+
+<br> To set up an R Project go to File -\> New Project
+
+![](screenshots/new_proj_example.PNG)
+
+## Organising Your Work
+
+![](screenshots/new_proj_example_2.PNG)
+
+## Organising Your Work
+
+![](screenshots/new_proj_example_3.PNG)
+
+## Organising Your Work
+
+![](screenshots/new_proj_example_4.PNG)
