@@ -420,6 +420,7 @@
 <section id="resources" class="slide level2">
 <h2>Resources</h2>
 <p><br> <a href="https://www.datacamp.com/tutorial/coding-best-practices-and-guidelines">Data Camp tutorial</a></p>
+<p><br> <a href="https://r4ds.hadley.nz/workflow-basics">R4DS Sections 2, 4 and 6</a></p>
 <p><br> <a href="https://style.tidyverse.org/index.html">TidyVerse style guide</a></p>
 <p><br> <a href="https://google.github.io/styleguide/">Google Style Guides - including R and Python</a></p>
 </section>
@@ -453,11 +454,9 @@
 <h2>Readable Code</h2>
 <p><br> The <code>janitor</code> package in R has useful functions for cleaning variable names</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="fu">library</span>(janitor)</span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>data <span class="ot">&lt;-</span> <span class="fu">clean_names</span>(data)</span>
 <span id="cb2-2"><a href=""></a></span>
-<span id="cb2-3"><a href=""></a>data <span class="ot">&lt;-</span> <span class="fu">clean_names</span>(data)</span>
-<span id="cb2-4"><a href=""></a></span>
-<span id="cb2-5"><a href=""></a><span class="fu">head</span>(data, <span class="at">n =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-3"><a href=""></a><span class="fu">head</span>(data, <span class="at">n =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 5
   row_id organisation_name patient_age length_of_stay death_flag
@@ -492,14 +491,16 @@
 <p><br> Use spaces in lines of code <br></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="co"># bad</span></span>
-<span id="cb6-2"><a href=""></a>data<span class="sc">$</span>patient_age_grp<span class="ot">&lt;-</span><span class="fu">if_else</span>(data<span class="sc">$</span>patient_age<span class="sc">&lt;</span><span class="dv">55</span>,<span class="dv">0</span>,<span class="dv">1</span>)</span>
-<span id="cb6-3"><a href=""></a></span>
-<span id="cb6-4"><a href=""></a>trust1<span class="ot">&lt;-</span>data[data<span class="sc">$</span>organisation_name<span class="sc">==</span><span class="st">"Trust1"</span>,]</span>
-<span id="cb6-5"><a href=""></a></span>
-<span id="cb6-6"><a href=""></a><span class="co"># better</span></span>
-<span id="cb6-7"><a href=""></a>data<span class="sc">$</span>patient_age_grp <span class="ot">&lt;-</span> <span class="fu">if_else</span>(data<span class="sc">$</span>patient_age <span class="sc">&lt;=</span> <span class="dv">55</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb6-2"><a href=""></a></span>
+<span id="cb6-3"><a href=""></a>data<span class="sc">$</span>patient_age_grp<span class="ot">&lt;-</span><span class="fu">if_else</span>(data<span class="sc">$</span>patient_age<span class="sc">&lt;</span><span class="dv">55</span>,<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb6-4"><a href=""></a></span>
+<span id="cb6-5"><a href=""></a>trust1<span class="ot">&lt;-</span>data[data<span class="sc">$</span>organisation_name<span class="sc">==</span><span class="st">"Trust1"</span>,]</span>
+<span id="cb6-6"><a href=""></a></span>
+<span id="cb6-7"><a href=""></a><span class="co"># better</span></span>
 <span id="cb6-8"><a href=""></a></span>
-<span id="cb6-9"><a href=""></a>trust1 <span class="ot">&lt;-</span> data[data<span class="sc">$</span>organisation_name <span class="sc">==</span> <span class="st">"Trust1"</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-9"><a href=""></a>data<span class="sc">$</span>patient_age_grp <span class="ot">&lt;-</span> <span class="fu">if_else</span>(data<span class="sc">$</span>patient_age <span class="sc">&lt;=</span> <span class="dv">55</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb6-10"><a href=""></a></span>
+<span id="cb6-11"><a href=""></a>trust1 <span class="ot">&lt;-</span> data[data<span class="sc">$</span>organisation_name <span class="sc">==</span> <span class="st">"Trust1"</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="readable-code-5" class="slide level2">
@@ -507,21 +508,234 @@
 <p><br> Avoid lines that are too long <br></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="co"># bad</span></span>
-<span id="cb7-2"><a href=""></a><span class="fu">ggplot</span>(data) <span class="sc">+</span></span>
-<span id="cb7-3"><a href=""></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> patient_age, <span class="at">y =</span> length_of_stay, <span class="at">colour =</span> <span class="fu">as.factor</span>(death_flag))) <span class="sc">+</span></span>
-<span id="cb7-4"><a href=""></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb7-5"><a href=""></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Age and length of stay of patients at 10 hospital trusts"</span>, <span class="at">x =</span> <span class="st">"Patient Age (years)"</span>, <span class="at">y =</span> <span class="st">"Patient Length of Stay (Days)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-2"><a href=""></a></span>
+<span id="cb7-3"><a href=""></a><span class="fu">ggplot</span>(data) <span class="sc">+</span></span>
+<span id="cb7-4"><a href=""></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> patient_age, <span class="at">y =</span> length_of_stay, <span class="at">colour =</span> <span class="fu">as.factor</span>(death_flag))) <span class="sc">+</span></span>
+<span id="cb7-5"><a href=""></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb7-6"><a href=""></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Age and length of stay of patients at 10 hospital trusts"</span>, <span class="at">x =</span> <span class="st">"Patient Age (years)"</span>, <span class="at">y =</span> <span class="st">"Patient Length of Stay (Days)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="co"># better</span></span>
-<span id="cb8-2"><a href=""></a><span class="fu">ggplot</span>(data) <span class="sc">+</span></span>
-<span id="cb8-3"><a href=""></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> patient_age, </span>
-<span id="cb8-4"><a href=""></a>                 <span class="at">y =</span> length_of_stay, </span>
-<span id="cb8-5"><a href=""></a>                 <span class="at">colour =</span> <span class="fu">as.factor</span>(death_flag))) <span class="sc">+</span></span>
-<span id="cb8-6"><a href=""></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb8-7"><a href=""></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Age and length of stay of patients at 10 hospital trusts"</span>, </span>
-<span id="cb8-8"><a href=""></a>       <span class="at">x =</span> <span class="st">"Patient Age (years)"</span>, </span>
-<span id="cb8-9"><a href=""></a>       <span class="at">y =</span> <span class="st">"Patient Length of Stay (Days)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-2"><a href=""></a></span>
+<span id="cb8-3"><a href=""></a><span class="fu">ggplot</span>(data) <span class="sc">+</span></span>
+<span id="cb8-4"><a href=""></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> patient_age, </span>
+<span id="cb8-5"><a href=""></a>                 <span class="at">y =</span> length_of_stay, </span>
+<span id="cb8-6"><a href=""></a>                 <span class="at">colour =</span> <span class="fu">as.factor</span>(death_flag))) <span class="sc">+</span></span>
+<span id="cb8-7"><a href=""></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb8-8"><a href=""></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Age and length of stay of patients at 10 hospital trusts"</span>, </span>
+<span id="cb8-9"><a href=""></a>       <span class="at">x =</span> <span class="st">"Patient Age (years)"</span>, </span>
+<span id="cb8-10"><a href=""></a>       <span class="at">y =</span> <span class="st">"Patient Length of Stay (Days)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="quarto-auto-generated-content">
+</section>
+<section id="readable-code-6" class="slide level2">
+<h2>Readable Code</h2>
+<p><br> If using the <code>tidyverse</code> or <code>ggplot2</code> then start a new line after each <code>%&gt;%</code> or <code>+</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href=""></a>  <span class="fu">filter</span>(organisation_name <span class="sc">==</span> <span class="st">"Trust1"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href=""></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> patient_age, </span>
+<span id="cb9-4"><a href=""></a>             <span class="at">y =</span> length_of_stay, </span>
+<span id="cb9-5"><a href=""></a>             <span class="at">colour =</span> <span class="fu">as.factor</span>(death_flag))) <span class="sc">+</span></span>
+<span id="cb9-6"><a href=""></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb9-7"><a href=""></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="readable-code-7" class="slide level2">
+<h2>Readable Code</h2>
+<p><br> Use functions to avoid repeating lines of code</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a>plot_function <span class="ot">&lt;-</span> <span class="cf">function</span>(org_name) {</span>
+<span id="cb10-2"><a href=""></a>  </span>
+<span id="cb10-3"><a href=""></a>  age_los_plot <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb10-4"><a href=""></a>  <span class="fu">filter</span>(organisation_name <span class="sc">==</span> org_name) <span class="sc">%&gt;%</span></span>
+<span id="cb10-5"><a href=""></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> patient_age, </span>
+<span id="cb10-6"><a href=""></a>             <span class="at">y =</span> length_of_stay, </span>
+<span id="cb10-7"><a href=""></a>             <span class="at">colour =</span> <span class="fu">as.factor</span>(death_flag))) <span class="sc">+</span></span>
+<span id="cb10-8"><a href=""></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb10-9"><a href=""></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb10-10"><a href=""></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Patient Age (Years)"</span>,</span>
+<span id="cb10-11"><a href=""></a>       <span class="at">y =</span> <span class="st">"Length of Stay (Days)"</span>)</span>
+<span id="cb10-12"><a href=""></a>  </span>
+<span id="cb10-13"><a href=""></a>  age_los_plot</span>
+<span id="cb10-14"><a href=""></a></span>
+<span id="cb10-15"><a href=""></a>}</span>
+<span id="cb10-16"><a href=""></a></span>
+<span id="cb10-17"><a href=""></a>orgs_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">"Trust1"</span>, <span class="st">"Trust2"</span>, <span class="st">"Trust3"</span>)</span>
+<span id="cb10-18"><a href=""></a></span>
+<span id="cb10-19"><a href=""></a>purrr<span class="sc">::</span><span class="fu">map</span>(orgs_list, plot_function)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="readable-code-8" class="slide level2">
+<h2>Readable Code</h2>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Trust 1</a></li><li><a href="#tabset-1-2">Trust 2</a></li><li><a href="#tabset-1-3">Trust 3</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="slides_files/figure-revealjs/unnamed-chunk-10-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-2">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="slides_files/figure-revealjs/unnamed-chunk-11-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-3">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="slides_files/figure-revealjs/unnamed-chunk-12-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="readable-code-9" class="slide level2">
+<h2>Readable Code</h2>
+<p>Use comments to annotate your code so it is easier to follow. <br> Particularly for documenting WHY you have done something <br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a><span class="co"># Anything preceded by a # will not be executed by R</span></span>
+<span id="cb11-2"><a href=""></a></span>
+<span id="cb11-3"><a href=""></a><span class="co"># 10*15</span></span>
+<span id="cb11-4"><a href=""></a></span>
+<span id="cb11-5"><a href=""></a><span class="dv">10</span><span class="sc">*</span><span class="dv">20</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 200</code></pre>
+</div>
+</div>
+</section>
+<section id="naming-things" class="slide level2">
+<h2>Naming Things</h2>
+<p><br> When you are naming new variables choose names that are descriptive. <br> Do not duplicate names <br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="co"># bad</span></span>
+<span id="cb13-2"><a href=""></a></span>
+<span id="cb13-3"><a href=""></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb13-4"><a href=""></a>  <span class="fu">group_by</span>(organisation_name) <span class="sc">%&gt;%</span></span>
+<span id="cb13-5"><a href=""></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">sum</span>(death_flag),</span>
+<span id="cb13-6"><a href=""></a>            <span class="at">mean_1 =</span> <span class="fu">mean</span>(patient_age),</span>
+<span id="cb13-7"><a href=""></a>            <span class="at">mean_2 =</span> <span class="fu">mean</span>(length_of_stay)) <span class="sc">%&gt;%</span></span>
+<span id="cb13-8"><a href=""></a>  <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 4
+  organisation_name     n mean_1 mean_2
+  &lt;chr&gt;             &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 Trust1                7   55.4   5.07
+2 Trust10               4   51.0   4.3 
+3 Trust2                5   51.2   4.23
+4 Trust3                6   47.9   5.07</code></pre>
+</div>
+</div>
+</section>
+<section id="naming-things-1" class="slide level2">
+<h2>Naming Things</h2>
+<p><br> When you are naming new variables or functions choose names that are descriptive. <br> Do not duplicate names <br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="co"># better</span></span>
+<span id="cb15-2"><a href=""></a></span>
+<span id="cb15-3"><a href=""></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb15-4"><a href=""></a>  <span class="fu">group_by</span>(organisation_name) <span class="sc">%&gt;%</span></span>
+<span id="cb15-5"><a href=""></a>  <span class="fu">summarise</span>(<span class="at">n_deaths =</span> <span class="fu">sum</span>(death_flag),</span>
+<span id="cb15-6"><a href=""></a>            <span class="at">mean_patient_age =</span> <span class="fu">mean</span>(patient_age),</span>
+<span id="cb15-7"><a href=""></a>            <span class="at">mean_length_of_stay =</span> <span class="fu">mean</span>(length_of_stay)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-8"><a href=""></a>  <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 4
+  organisation_name n_deaths mean_patient_age mean_length_of_stay
+  &lt;chr&gt;                &lt;dbl&gt;            &lt;dbl&gt;               &lt;dbl&gt;
+1 Trust1                   7             55.4                5.07
+2 Trust10                  4             51.0                4.3 
+3 Trust2                   5             51.2                4.23
+4 Trust3                   6             47.9                5.07</code></pre>
+</div>
+</div>
+</section>
+<section id="naming-things-2" class="slide level2">
+<h2>Naming Things</h2>
+<p><br> When you are naming new variables or functions choose names that are descriptive. <br> Do not duplicate names <br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a><span class="co"># bad</span></span>
+<span id="cb17-2"><a href=""></a></span>
+<span id="cb17-3"><a href=""></a>model_a <span class="ot">&lt;-</span> <span class="fu">glm</span>(data<span class="sc">$</span>patient_age <span class="sc">~</span> data<span class="sc">$</span>length_of_stay, <span class="at">family =</span> <span class="fu">gaussian</span>())</span>
+<span id="cb17-4"><a href=""></a></span>
+<span id="cb17-5"><a href=""></a>model_b <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="fu">as.factor</span>(data<span class="sc">$</span>death_flag) <span class="sc">~</span> data<span class="sc">$</span>patient_age, <span class="at">family =</span> <span class="fu">binomial</span>())</span>
+<span id="cb17-6"><a href=""></a></span>
+<span id="cb17-7"><a href=""></a><span class="co"># better</span></span>
+<span id="cb17-8"><a href=""></a></span>
+<span id="cb17-9"><a href=""></a>model_los_age <span class="ot">&lt;-</span> <span class="fu">glm</span>(data<span class="sc">$</span>length_of_stay <span class="sc">~</span> data<span class="sc">$</span>patient_age, </span>
+<span id="cb17-10"><a href=""></a>                     <span class="at">family =</span> <span class="fu">gaussian</span>())</span>
+<span id="cb17-11"><a href=""></a></span>
+<span id="cb17-12"><a href=""></a>model_death_age <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="fu">as.factor</span>(data<span class="sc">$</span>death_flag) <span class="sc">~</span> data<span class="sc">$</span>patient_age, </span>
+<span id="cb17-13"><a href=""></a>                       <span class="at">family =</span> <span class="fu">binomial</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="naming-things-3" class="slide level2">
+<h2>Naming Things</h2>
+<p><br> For naming files again use descriptive names. If working on a larger project then consider having a separate file for each stage of the project, and make it clear what order the analysis has been done in. <br></p>
+<p>For example: <br> <code>01_data_cleaning.R</code> <br> <code>02_baseline_characteristics.R</code> <br> <code>03_descriptive_stats.R</code> <br> <code>04_models.R</code> <br> <code>05_figures.R</code> <br></p>
+</section>
+<section id="organising-your-work" class="slide level2">
+<h2>Organising Your Work</h2>
+<p><br> Within an R script you can use sections to organise your scripts. <br></p>
+<p>Insert a new section using ctrl + shift + R and navigate using the document outline on the right of the script</p>
+</section>
+<section id="organising-your-work-1" class="slide level2">
+<h2>Organising Your Work</h2>
+
+<img data-src="sections_example.png" class="r-stretch"></section>
+<section id="organising-your-work-2" class="slide level2">
+<h2>Organising Your Work</h2>
+<p><br> Working within an R Project is a good way to organise not only your R scripts but keeps all the data and outputs from your work in the same place. <br><br> Avoids the need to use <code>set_wd()</code> at the start of your scripts, which is not best practice, particularly when collaborating with others.</p>
+</section>
+<section id="organising-your-work-3" class="slide level2">
+<h2>Organising Your Work</h2>
+<p><br> <code>set_wd()</code> uses absolute file paths, e.g.&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a><span class="fu">setwd</span>(<span class="st">"C:/Users/mfbx9sbk/OneDrive - The University of Manchester/MSc Teaching/coding_best_practice_2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br> This can cause problems when you are collaborating with others, as not everyone will have their files organised in the same way.</p>
+</section>
+<section id="organising-your-work-4" class="slide level2">
+<h2>Organising Your Work</h2>
+<p><br> R Projects use relative file paths, which are relative to the working directory of the project. <br> For example, you want to save a cleaned version of your data, or a plot you have generated.</p>
+</section>
+<section id="organising-your-work-5" class="slide level2">
+<h2>Organising Your Work</h2>
+<p><br> Here the file paths are relative to the Project directory <br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a><span class="fu">ggplot</span>(data) <span class="sc">+</span></span>
+<span id="cb19-2"><a href=""></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> patient_age, <span class="at">y =</span> length_of_stay))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a><span class="fu">ggsave</span>(<span class="st">"figs/age_los_scatter.png"</span>)</span>
+<span id="cb20-2"><a href=""></a></span>
+<span id="cb20-3"><a href=""></a><span class="fu">write_csv</span>(data, <span class="st">"data/trust_los_clean.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="organising-your-work-6" class="slide level2">
+<h2>Organising Your Work</h2>
+
+<img data-src="project_example.png" class="r-stretch"></section>
+<section id="organising-your-project" class="slide level2">
+<h2>Organising Your Project</h2>
+
+<img data-src="plot_example.png" class="r-stretch"></section>
+<section id="organising-your-project-1" class="slide level2">
+<h2>Organising Your Project</h2>
+
+<img data-src="data_example.png" class="r-stretch"><div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
 </div>

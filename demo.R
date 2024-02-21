@@ -17,3 +17,11 @@ LOS_model <- as.data.frame(LOS_model)
 
 library(here)
 #ggsave(here::here("figs", paste0(org_name, ".png")))
+
+
+# cleaning data ---------------------------------------------------------------
+
+
+# demographic characteristics summary -------------------------------------
+
+

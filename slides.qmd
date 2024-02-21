@@ -4,6 +4,17 @@ format: revealjs
 editor: visual
 ---
 
+```{r}
+#| echo: FALSE
+#| warning: false
+setwd("C:/Users/mfbx9sbk/OneDrive - The University of Manchester/MSc Teaching/coding_best_practice_2")
+here::i_am("slides.qmd")
+library(here)
+library(tidyverse)
+library(janitor)
+library(gt)
+```
+
 ## What we will cover in this session
 
 <br>
@@ -30,6 +41,8 @@ Particularly if you are collaborating with others but even if you are working on
 
 <br> [Data Camp tutorial](https://www.datacamp.com/tutorial/coding-best-practices-and-guidelines)
 
+<br> [R4DS Sections 2, 4 and 6](https://r4ds.hadley.nz/workflow-basics)
+
 <br> [TidyVerse style guide](https://style.tidyverse.org/index.html)
 
 <br> [Google Style Guides - including R and Python](https://google.github.io/styleguide/)
@@ -50,7 +63,6 @@ Particularly if you are collaborating with others but even if you are working on
 
 ```{r}
 #| echo: false
-library(tidyverse)
 data <- read_csv(here::here("data", "trust_los.csv"))
 head(data)
 ```
@@ -61,7 +73,6 @@ head(data)
 
 ```{r}
 #| echo: TRUE
-library(janitor)
 
 data <- clean_names(data)
 
@@ -86,16 +97,18 @@ data <- clean_names(data)
 
 ## Readable Code
 
-<br> Use spaces in lines of code
-<br>
+<br> Use spaces in lines of code <br>
+
 ```{r}
 #| echo: TRUE
 # bad
+
 data$patient_age_grp<-if_else(data$patient_age<55,0,1)
 
 trust1<-data[data$organisation_name=="Trust1",]
 
 # better
+
 data$patient_age_grp <- if_else(data$patient_age <= 55, 0, 1)
 
 trust1 <- data[data$organisation_name == "Trust1", ]
@@ -103,18 +116,21 @@ trust1 <- data[data$organisation_name == "Trust1", ]
 
 ## Readable Code
 
-<br> Avoid lines that are too long
-<br>
+<br> Avoid lines that are too long <br>
+
 ```{r}
 #| echo: TRUE
 #| output: FALSE
+
 # bad
+
 ggplot(data) +
   geom_point(aes(x = patient_age, y = length_of_stay, colour = as.factor(death_flag))) +
   theme_minimal() +
   labs(title = "Age and length of stay of patients at 10 hospital trusts", x = "Patient Age (years)", y = "Patient Length of Stay (Days)")
 
 # better
+
 ggplot(data) +
   geom_point(aes(x = patient_age, 
                  y = length_of_stay, 
@@ -127,4 +143,216 @@ ggplot(data) +
 
 ## Readable Code
 
-<br> If using the `tidyverse` and 
+<br> If using the `tidyverse` or `ggplot2` then start a new line after each `%>%` or `+`
+
+```{r}
+#| echo: TRUE
+#| output: FALSE
+
+data %>%
+  filter(organisation_name == "Trust1") %>%
+  ggplot(aes(x = patient_age, 
+             y = length_of_stay, 
+             colour = as.factor(death_flag))) +
+  geom_point() +
+  theme_minimal()
+```
+
+## Readable Code
+
+<br> Use functions to avoid repeating lines of code
+
+```{r}
+#| echo: TRUE
+#| output: FALSE
+
+plot_function <- function(org_name) {
+  
+  age_los_plot <- data %>%
+  filter(organisation_name == org_name) %>%
+  ggplot(aes(x = patient_age, 
+             y = length_of_stay, 
+             colour = as.factor(death_flag))) +
+  geom_point() +
+  theme_minimal() +
+  labs(x = "Patient Age (Years)",
+       y = "Length of Stay (Days)")
+  
+  age_los_plot
+
+}
+
+orgs_list <- list("Trust1", "Trust2", "Trust3")
+
+purrr::map(orgs_list, plot_function)
+
+```
+
+## Readable Code
+
+::: panel-tabset
+## Trust 1
+
+```{r}
+
+#| fig-height: 0.5
+
+plot_function("Trust1")
+
+```
+
+## Trust 2
+
+```{r}
+
+#| fig-height: 0.5
+
+plot_function("Trust2")
+
+```
+
+## Trust 3
+
+```{r}
+
+#| fig-height: 0.5
+
+plot_function("Trust3")
+
+```
+:::
+
+## Readable Code
+
+Use comments to annotate your code so it is easier to follow. <br> Particularly for documenting WHY you have done something <br>
+
+```{r}
+#| echo: true
+
+# Anything preceded by a # will not be executed by R
+
+# 10*15
+
+10*20
+
+```
+
+## Naming Things
+
+<br> When you are naming new variables choose names that are descriptive. <br> Do not duplicate names <br>
+
+```{r}
+#| echo: true
+
+# bad
+
+data %>%
+  group_by(organisation_name) %>%
+  summarise(n = sum(death_flag),
+            mean_1 = mean(patient_age),
+            mean_2 = mean(length_of_stay)) %>%
+  head(n = 4)
+
+```
+
+## Naming Things
+
+<br> When you are naming new variables or functions choose names that are descriptive. <br> Do not duplicate names <br>
+
+```{r}
+#| echo: true
+
+# better
+
+data %>%
+  group_by(organisation_name) %>%
+  summarise(n_deaths = sum(death_flag),
+            mean_patient_age = mean(patient_age),
+            mean_length_of_stay = mean(length_of_stay)) %>%
+  head(n = 4)
+
+```
+
+## Naming Things
+
+<br> When you are naming new variables or functions choose names that are descriptive. <br> Do not duplicate names <br>
+
+```{r}
+#| echo: true
+
+# bad
+
+model_a <- glm(data$patient_age ~ data$length_of_stay, family = gaussian())
+
+model_b <- glm(as.factor(data$death_flag) ~ data$patient_age, family = binomial())
+
+# better
+
+model_los_age <- glm(data$length_of_stay ~ data$patient_age, 
+                     family = gaussian())
+
+model_death_age <- glm(as.factor(data$death_flag) ~ data$patient_age, 
+                       family = binomial())
+
+```
+
+## Naming Things
+
+<br> For naming files again use descriptive names. If working on a larger project then consider having a separate file for each stage of the project, and make it clear what order the analysis has been done in. <br>
+
+For example: <br> `01_data_cleaning.R` <br> `02_baseline_characteristics.R` <br> `03_descriptive_stats.R` <br> `04_models.R` <br> `05_figures.R` <br>
+
+## Organising Your Work
+
+<br> Within an R script you can use sections to organise your scripts. <br>
+
+Insert a new section using ctrl + shift + R and navigate using the document outline on the right of the script
+
+## Organising Your Work
+
+![](sections_example.png)
+
+## Organising Your Work
+
+<br> Working within an R Project is a good way to organise not only your R scripts but keeps all the data and outputs from your work in the same place. <br><br> Avoids the need to use `set_wd()` at the start of your scripts, which is not best practice, particularly when collaborating with others.
+
+## Organising Your Work
+
+<br> `set_wd()` uses absolute file paths, e.g. 
+```{r}
+#| echo: true
+#| output: false
+setwd("C:/Users/mfbx9sbk/OneDrive - The University of Manchester/MSc Teaching/coding_best_practice_2")
+```
+<br> This can cause problems when you are collaborating with others, as not everyone will have their files organised in the same way.
+
+## Organising Your Work
+
+<br> R Projects use relative file paths, which are relative to the working directory of the project.
+<br> For example, you want to save a cleaned version of your data, or a plot you have generated.
+
+## Organising Your Work
+
+<br> Here the file paths are relative to the Project directory
+<br>
+```{r}
+#| echo: true
+#| output: false
+ggplot(data) +
+  geom_point(aes(x = patient_age, y = length_of_stay))
+
+ggsave("figs/age_los_scatter.png")
+
+write_csv(data, "data/trust_los_clean.csv")
+```
+
+## Organising Your Work
+
+![](project_example.png)
+
+## Organising Your Project
+![](plot_example.png)
+
+## Organising Your Project
+
+![](data_example.png)
