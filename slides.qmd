@@ -253,14 +253,14 @@ mean_function("Trust2", data$length_of_stay)
 
 ## Readable Code
 
-<br> You can use the `purrr` package to apply a function to multiple items in a list <br> Or in base R the `lapply`, `sapply`, `vapply` functions do similar
+<br> You can use the `purrr` package to apply a function to multiple items in a list.
+<br> E.g. here we are creating a plotting function we want to apply to multiple subsets of the data
 
 ```{r}
 #| echo: TRUE
 #| output: FALSE
 
 plot_function <- function(org_name) {
-  
   age_los_plot <- data %>%
   filter(organisation_name == org_name) %>%
   ggplot(aes(x = patient_age, 
@@ -272,14 +272,22 @@ plot_function <- function(org_name) {
        y = "Length of Stay (Days)")
   
   age_los_plot
-
 }
+```
 
+## Readable Code
+
+Then we use the `map` function from `purrr` to iterate through a list of trust names
+
+```{r}
+#| echo: TRUE
+#| output: FALSE
 orgs_list <- list("Trust1", "Trust2", "Trust3")
 
 purrr::map(orgs_list, plot_function)
 
 ```
+<br> In base R the `lapply`, `sapply`, `vapply` functions do similar.
 
 ## Readable Code
 
