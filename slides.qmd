@@ -1,5 +1,6 @@
 ---
 title: "Coding Best Practice"
+author: "Dr Siân Bladon, PhD"
 format: 
   revealjs: 
     embed-resources: true
@@ -10,7 +11,7 @@ editor: visual
 #| echo: FALSE
 #| warning: false
 #| output: false
-setwd("C:/Users/mfbx9sbk/OneDrive - The University of Manchester/MSc Teaching/coding_best_practice_2")
+setwd("C:/Users/mfbx9sbk/OneDrive - The University of Manchester/MSc Teaching/coding_best_practice")
 here::i_am("slides.qmd")
 library(here)
 library(tidyverse)
@@ -18,7 +19,8 @@ library(janitor)
 library(gt)
 ```
 
-## What we will cover in this session
+
+## What We Will Cover in This Session
 
 <br>
 
@@ -30,17 +32,25 @@ library(gt)
 
 <br> Disclaimer - some of it is quite specific to coding in R
 
-## Why this is important
+## Why This is Important
 
-<br>It is important that your code is:
+<br> Good coding practices are important because it helps ensure that your code is:
 
--   readable
+-   readable - is the code written in a clear and readable way?
 
--   understandable
+-   understandable - is the code easy to follow? Is it clear what is being done at each stage?
 
--   reproducible
+-   reproducible - could another person be able to re-run the code?
 
-Particularly if you are collaborating with others but even if you are working on a project by yourself
+## Why This is Important
+
+<br> This is useful for working on any type of coding project. <br> For solo projects, you may think your code makes perfect sense when you are writing it, but when you look back it does not... <br> For working with others it is important it not only makes sense to you but to your collaborators
+
+## Why This is Important
+
+<br> Introducing some of these practices into your workflow at the start of projects can help them run more smoothly, avoid potential confusion and save time further down the line.
+
+<br> There is a move for science to become more reproducible, with more researchers making their code and data available when publishing a paper. <br> This means your code may be viewed by a wider range of people and, therefore, even more important the code is reproducible.
 
 ## Resources
 
@@ -52,15 +62,27 @@ Particularly if you are collaborating with others but even if you are working on
 
 <br> [Google Style Guides - including R and Python](https://google.github.io/styleguide/)
 
-## Readable code
+## Readable Code
 
-<br> For naming variables and functions there are two common conventions you can use:
+<br> There are a few things you can do to make your code easier to read <br> <br> youshouldavoidwritingcodelikethisasitisdifficulttoreadthesentence
 
--   theFirstOneIsCalledCamelCase
+## Readable Code
 
--   the_second_is_called_snake_case
+thisisabadnameforafunction \<- function()
 
-<br> Personal preference but be consistent <br> Do not use spaces in names
+<br> Do not use spaces in names
+
+this is also a bad name for a function \<- function()
+
+## Readable Code
+
+For naming variables and functions there are two common conventions you can use:
+
+-   camelCase e.g. thisIsABetterNameForAFunction \<- function()
+
+-   snake_case e.g. this_is_an_even_better_name_for_a\_function \<- function()
+
+<br> Personal preference but be consistent
 
 ## Readable Code
 
@@ -84,6 +106,8 @@ data <- clean_names(data)
 head(data, n = 4)
 ```
 
+<br> Default is to use snake_case
+
 ## Readable Code
 
 <br> The `janitor` package in R has useful functions for cleaning variable names <br>
@@ -95,6 +119,8 @@ data <- clean_names(data, case = "upper_camel")
 head(data, n = 4)
 ```
 
+<br> But you can specify to use CamelCase if you prefer
+
 ```{r}
 #| echo: FALSE
 data <- clean_names(data)
@@ -102,7 +128,7 @@ data <- clean_names(data)
 
 ## Readable Code
 
-<br> Use spaces in lines of code <br>
+<br> Use spaces in lines of code to separate names,functions & operators <br> <br>
 
 ```{r}
 #| echo: TRUE
@@ -117,6 +143,22 @@ trust1<-data[data$organisation_name=="Trust1",]
 data$patient_age_grp <- if_else(data$patient_age <= 55, 0, 1)
 
 trust1 <- data[data$organisation_name == "Trust1", ]
+```
+
+## Readable Code
+
+<br> Note the exception for between a function name and opening of brackets
+
+```{r}
+#| echo: TRUE
+
+# like this 
+data$patient_age_grp <- if_else(data$patient_age <= 55, 0, 1)
+
+# not like this
+
+data$patient_age_grp <- if_else (data$patient_age <= 55, 0, 1)
+
 ```
 
 ## Readable Code
@@ -165,7 +207,53 @@ data %>%
 
 ## Readable Code
 
-<br> Use functions to avoid repeating lines of code
+<br> Use functions to avoid repeating lines of code <br> General rule of thumb is that if you copy and paste a section of code more than two times then you should make a function
+
+<br> [Chapter 25](https://r4ds.hadley.nz/functions) of the R4DS book is a useful place to start
+
+## Readable Code
+
+<br> Example of a simple function
+
+```{r}
+#| echo: TRUE
+
+function_example <- function(x, y) {
+  (x + y) / 2
+}
+
+function_example(7, 15)
+
+```
+
+## Readable Code
+
+<br> Slightly more complex example
+
+```{r}
+#| echo: TRUE
+mean_function <- function(org_name, var) {
+  
+  data %>%
+    filter(organisation_name == org_name) %>%
+    summarise(mean_var = mean(var))
+  
+} 
+
+mean_function("Trust1", data$patient_age)
+
+```
+
+```{r}
+#| echo: TRUE
+
+mean_function("Trust2", data$length_of_stay)
+
+```
+
+## Readable Code
+
+<br> You can use the `purrr` package to apply a function to multiple items in a list <br> Or in base R the `lapply`, `sapply`, `vapply` functions do similar
 
 ```{r}
 #| echo: TRUE
@@ -229,16 +317,36 @@ plot_function("Trust3")
 
 ## Readable Code
 
-Use comments to annotate your code so it is easier to follow. <br> Particularly for documenting WHY you have done something <br>
+Use comments to annotate your code so it is easier to follow. <br> Particularly for documenting WHY you have done something <br> <br>
 
 ```{r}
-#| echo: true
+#| echo: TRUE
 
 # Anything preceded by a # will not be executed by R
 
 # 10*15
 
 10*20
+
+```
+
+## Readable Code
+
+Use comments to annotate your code so it is easier to follow. <br> Particularly for documenting WHY you have done something <br> <br>
+
+```{r}
+#| echo: TRUE
+
+# At the start of an R script I usually write a few lines describing what the script is for, 
+# what the input data is and what the expected outputs are. 
+# Then use comments throughout to break up the code and explain the analysis. Example:
+
+# 15 patients in dataset with their age missing, excluding them from analysis
+
+data <- data %>%
+  filter(!is.na(patient_age))
+
+# n = 285 from here
 
 ```
 
@@ -311,6 +419,7 @@ For example: <br> `01_data_cleaning.R` <br> `02_baseline_characteristics.R` <br>
 
 <br> Within an R script you can use sections to organise your scripts. <br>
 
+<br>
 Insert a new section using ctrl + shift + R and navigate using the document outline on the right of the script
 
 ## Organising Your Work
@@ -389,6 +498,35 @@ write_csv(data, "data/trust_los_clean.csv")
 <br> Use the README.MD document to briefly describe your project, including what you have done and what the output is.
 
 <br> ![](screenshots/readme_example.PNG)
+
+## Organising Your Work
+
+<br> Use the source() function to call and run other R scripts within your current script.
+<br>
+<br> For example, you may want to automatically run your data cleaning script before your analysis script
+
+```{r}
+#| echo: TRUE
+#| output: FALSE
+source("scripts/01_data_cleaning.R")
+```
+
+## Organising Your Work
+<br>
+<br> Or, you may have a separate script with functions you want to use 
+
+<br>
+```{r}
+#| echo: TRUE
+#| output: FALSE
+source("scripts/00_functions.R")
+```
+
+
+## Organising Your Work
+
+<br> This can be useful for building Reproducible Analytical Pipelines, where analysis can be run repeatedly and reproducibly. 
+
 
 ## Version Control
 
