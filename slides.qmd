@@ -11,7 +11,7 @@ editor: visual
 #| echo: FALSE
 #| warning: false
 #| output: false
-setwd("C:/Users/mfbx9sbk/OneDrive - The University of Manchester/MSc Teaching/coding_best_practice")
+setwd("C:/Users/mfbx9sbk/OneDrive - The University of Manchester/MSc Teaching/coding_best_practice_2")
 here::i_am("slides.qmd")
 library(here)
 library(tidyverse)
@@ -508,6 +508,7 @@ write_csv(data, "data/trust_los_clean.csv")
 ```{r}
 #| echo: TRUE
 #| output: FALSE
+#| eval: FALSE
 source("scripts/01_data_cleaning.R")
 ```
 
@@ -519,6 +520,7 @@ source("scripts/01_data_cleaning.R")
 ```{r}
 #| echo: TRUE
 #| output: FALSE
+#| eval: FALSE
 source("scripts/00_functions.R")
 ```
 
@@ -526,6 +528,9 @@ source("scripts/00_functions.R")
 ## Organising Your Work
 
 <br> This can be useful for building Reproducible Analytical Pipelines, where analysis can be run repeatedly and reproducibly. 
+
+<br> 
+More info on that can be found [here](https://raps-with-r.dev/)
 
 
 ## Version Control
