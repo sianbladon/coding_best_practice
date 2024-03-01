@@ -276,9 +276,9 @@ plot_function <- function(org_name) {
 ```
 
 ## Readable Code
-
-Then we use the `map` function from `purrr` to iterate through a list of trust names
-
+<br>
+Then we use the `map` function from `purrr` to iterate through a list of trust names <br>
+<br>
 ```{r}
 #| echo: TRUE
 #| output: FALSE
