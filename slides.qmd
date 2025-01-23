@@ -34,7 +34,7 @@ library(gt)
 
 ## Why This is Important
 
-<br> Good coding practices are important because it helps ensure that your code is:
+<br> Good coding practice is important because it helps ensure that your code is:
 
 -   readable - is the code written in a clear and readable way?
 
@@ -44,11 +44,11 @@ library(gt)
 
 ## Why This is Important
 
-<br> This is useful for working on any type of coding project. <br> For solo projects, you may think your code makes perfect sense when you are writing it, but when you look back it does not... <br> For working with others it is important it not only makes sense to you but to your collaborators
+<br> This is useful for working on any type of coding project. <br> For solo projects, you may think your code makes perfect sense when you are writing it, but when you look back it does not... <br> For working with others, it is important it not only makes sense to you but to your collaborators
 
 ## Why This is Important
 
-<br> Introducing some of these practices into your workflow at the start of projects can help them run more smoothly, avoid potential confusion and save time further down the line.
+<br> Introducing some of these practices into your workflow at the start of projects can help them run more smoothly, avoid potential confusion, and save time further down the line.
 
 <br> There is a move for science to become more reproducible, with more researchers making their code and data available when publishing a paper. <br> This means your code may be viewed by a wider range of people and, therefore, even more important the code is reproducible.
 
@@ -128,7 +128,7 @@ data <- clean_names(data)
 
 ## Readable Code
 
-<br> Use spaces in lines of code to separate names,functions & operators <br> <br>
+<br> Use spaces in lines of code to separate names, functions & operators <br> <br>
 
 ```{r}
 #| echo: TRUE
@@ -207,7 +207,7 @@ data %>%
 
 ## Readable Code
 
-<br> Use functions to avoid repeating lines of code <br> General rule of thumb is that if you copy and paste a section of code more than two times then you should make a function
+<br> Use functions to avoid repeating lines of code <br> General rule of thumb is that if you copy and paste a section of code more than twice then you should make a function
 
 <br> [Chapter 25](https://r4ds.hadley.nz/functions) of the R4DS book is a useful place to start
 
@@ -463,6 +463,7 @@ setwd("C:/Users/mfbx9sbk/OneDrive - The University of Manchester/MSc Teaching/co
 #| output: false
 ggplot(data) +
   geom_point(aes(x = patient_age, y = length_of_stay))
+
 ggsave("figs/age_los_scatter.png")
 
 
