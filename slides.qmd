@@ -1,5 +1,6 @@
 ---
 title: "Coding Best Practice"
+subtitle: "Slides can be found at https://sianbladon.github.io/coding_best_practice/"
 author: "Dr Siân Bladon & Dr Alex Pate"
 format: 
   revealjs: 
