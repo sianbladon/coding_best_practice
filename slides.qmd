@@ -1,6 +1,6 @@
 ---
 title: "Coding Best Practice"
-author: "Dr Siân Bladon, PhD"
+author: "Dr Siân Bladon & Dr Alex Pate"
 format: 
   revealjs: 
     embed-resources: true
@@ -436,11 +436,11 @@ Insert a new section using ctrl + shift + R and navigate using the document outl
 
 ## Organising Your Work
 
-<br> Working within an R Project is a good way to organise not only your R scripts but keeps all the data and outputs from your work in the same place. <br><br> Avoids the need to use `set_wd()` at the start of your scripts, which is not best practice, particularly when collaborating with others.
+<br> Working within an R Project is a good way to organise not only your R scripts but keeps all the data and outputs from your work in the same place. <br><br> Avoids the need to use `setwd()` at the start of your scripts, which is not best practice, particularly when collaborating with others.
 
 ## Organising Your Work
 
-<br> `set_wd()` uses absolute file paths, e.g.
+<br> `setwd()` uses absolute file paths, e.g.
 
 ```{r}
 #| echo: true
@@ -523,7 +523,7 @@ source("scripts/01_data_cleaning.R")
 
 ## Organising Your Work
 <br>
-<br> Or, you may have a separate script with functions you want to use 
+<br> Or, you may have a separate script with functions you want to use. This helps keep your code clean and easy to follow
 
 <br>
 ```{r}
@@ -534,13 +534,82 @@ source("scripts/00_functions.R")
 ```
 
 
+
 ## Organising Your Work
 
-<br> This can be useful for building Reproducible Analytical Pipelines, where analysis can be run repeatedly and reproducibly. 
+<br> Objects created while running analyses can be saved using `saveRDS()`.
 
-<br> 
-More info on that can be found [here](https://raps-with-r.dev/)
+```{r}
+#| echo: TRUE
+#| output: FALSE
+#| eval: FALSE
+saveRDS(my_object, "data/my_object.rds")
+```
 
+## Organising Your Work
+
+<br> and read back in using `readRDS()`
+
+```{r}
+#| echo: TRUE
+#| output: FALSE
+#| eval: FALSE
+my_object <- readRDS("data/my_object.rds")
+```
+
+<br> This allows you to break up analyses into multiple scripts, meaning you don't have to re-run everything when you start a new session.
+
+<br> Useful when working with large datasets or running simulations which take a long time, or running programs non-interactively.
+
+## Organising Your Work
+
+<br> Entire workspace can be saved using `save.image()`
+
+```{r}
+#| echo: TRUE
+#| output: FALSE
+#| eval: FALSE
+save.image("data/my_workspace.RData")
+```
+
+## Organising Your Work
+
+<br> And read back in using `load()`
+
+```{r}
+#| echo: TRUE
+#| output: FALSE
+#| eval: FALSE
+load("data/my_workspace.RData")
+```
+
+<br> Advantage: Means you don't have to individually save all research objects that you want to keep.
+
+<br> Disadvantage: Will end up saving stuff you don't need, less space efficient than .rds files, and slower to read in.
+
+## Organising Your Work
+
+<br> Figures can be saved directly into the specified directory:
+
+```{r}
+#| echo: TRUE
+#| output: FALSE
+#| eval: FALSE
+png("figures/myplot.png")
+myplot
+dev.off()
+```
+
+## Organising Your Work
+
+<br> For ggplots you can use ggsave:
+
+```{r}
+#| echo: TRUE
+#| output: FALSE
+#| eval: FALSE
+ggsave(myplot, "figures/myplot.png")
+```
 
 ## Version Control
 
